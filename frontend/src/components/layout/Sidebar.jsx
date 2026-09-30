@@ -10,9 +10,10 @@ import {
   BookOpen,
   BarChart3,
   Settings,
-  ShieldAlert,
   LogOut,
-  ChevronRight
+  ChevronRight,
+  Database,
+  Cpu
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { APP_NAME } from '../../utils/constants';
@@ -20,16 +21,31 @@ import { APP_NAME } from '../../utils/constants';
 export const Sidebar = ({ isOpen, onClose }) => {
   const { user, logout } = useAuth();
 
-  const navItems = [
-    { label: 'Overview', path: '/dashboard', icon: LayoutDashboard },
-    { label: 'AI Assistant', path: '/dashboard/assistant', icon: Bot, badge: 'Live AI' },
-    { label: 'Conversations', path: '/dashboard/conversations', icon: MessageSquare },
-    { label: 'Customers', path: '/dashboard/customers', icon: Users },
-    { label: 'Support Tickets', path: '/dashboard/tickets', icon: Ticket },
-    { label: 'Recommendations', path: '/dashboard/recommendations', icon: Sparkles },
-    { label: 'Knowledge Base', path: '/dashboard/knowledge', icon: BookOpen },
-    { label: 'Analytics', path: '/dashboard/analytics', icon: BarChart3 },
-    { label: 'Settings', path: '/dashboard/settings', icon: Settings },
+  const sections = [
+    {
+      title: 'Core Platform',
+      items: [
+        { label: 'Overview', path: '/dashboard', icon: LayoutDashboard },
+        { label: 'AI Assistant', path: '/dashboard/assistant', icon: Bot, badge: 'Live AI', badgeVariant: 'cyan' },
+        { label: 'Live Conversations', path: '/dashboard/conversations', icon: MessageSquare },
+      ]
+    },
+    {
+      title: 'Customer Operations',
+      items: [
+        { label: 'Support Tickets', path: '/dashboard/tickets', icon: Ticket },
+        { label: 'Customers', path: '/dashboard/customers', icon: Users },
+        { label: 'Knowledge Base', path: '/dashboard/knowledge', icon: BookOpen },
+      ]
+    },
+    {
+      title: 'Intelligence & Config',
+      items: [
+        { label: 'Smart Recommendations', path: '/dashboard/recommendations', icon: Sparkles },
+        { label: 'CX Analytics', path: '/dashboard/analytics', icon: BarChart3 },
+        { label: 'Platform Settings', path: '/dashboard/settings', icon: Settings },
+      ]
+    }
   ];
 
   return (
@@ -37,83 +53,99 @@ export const Sidebar = ({ isOpen, onClose }) => {
       {/* Mobile Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-40 bg-slate-950/85 backdrop-blur-md lg:hidden animate-fade-in"
           onClick={onClose}
         />
       )}
 
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-40 w-64 glass-panel border-r border-slate-800 flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-40 w-64 glass-panel border-r border-slate-800/80 flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Brand Header */}
-        <div className="h-16 flex items-center px-6 border-b border-slate-800/80 justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-indigo-500/25">
+        <div className="h-16 flex items-center px-5 border-b border-slate-800/80 justify-between relative overflow-hidden">
+          {/* Subtle logo glow */}
+          <div className="absolute -top-10 -left-10 w-24 h-24 bg-indigo-500/15 rounded-full blur-xl pointer-events-none" />
+
+          <div className="flex items-center space-x-3 z-10">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-indigo-500/25 border border-white/15">
               <Bot className="w-5 h-5 text-white" />
             </div>
             <div>
-              <span className="font-bold text-white text-base tracking-tight">{APP_NAME}</span>
-              <span className="block text-[10px] text-indigo-400 font-semibold uppercase tracking-wider">Enterprise CX</span>
+              <span className="font-extrabold text-white text-base tracking-tight">{APP_NAME}</span>
+              <span className="block text-[10px] text-cyan-400 font-semibold tracking-wider uppercase">
+                Enterprise AI CX
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Navigation List */}
-        <div className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
-          <div className="px-3 pb-2 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-            Platform Menu
-          </div>
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                end={item.path === '/dashboard'}
-                onClick={onClose}
-                className={({ isActive }) =>
-                  `flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group ${
-                    isActive
-                      ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/25'
-                      : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
-                  }`
-                }
-              >
-                <div className="flex items-center space-x-3">
-                  <Icon className="w-4 h-4 transition-transform group-hover:scale-110" />
-                  <span>{item.label}</span>
-                </div>
-                {item.badge && (
-                  <span className="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
-                    {item.badge}
-                  </span>
-                )}
-              </NavLink>
-            );
-          })}
+        {/* Navigation Sections */}
+        <div className="flex-1 py-4 px-3 space-y-6 overflow-y-auto">
+          {sections.map((sec, idx) => (
+            <div key={idx} className="space-y-1">
+              <div className="px-3 pb-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                {sec.title}
+              </div>
+              {sec.items.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <NavLink
+                    key={item.path}
+                    to={item.path}
+                    end={item.path === '/dashboard'}
+                    onClick={onClose}
+                    className={({ isActive }) =>
+                      `relative flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 group ${
+                        isActive
+                          ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-600/30 border border-indigo-400/30'
+                          : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 hover:border-slate-700/60 border border-transparent'
+                      }`
+                    }
+                  >
+                    <div className="flex items-center space-x-2.5">
+                      <Icon className="w-4 h-4 transition-transform group-hover:scale-110 flex-shrink-0" />
+                      <span>{item.label}</span>
+                    </div>
+                    {item.badge && (
+                      <span className="px-2 py-0.5 text-[9px] font-bold rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm animate-pulse">
+                        {item.badge}
+                      </span>
+                    )}
+                  </NavLink>
+                );
+              })}
+            </div>
+          ))}
         </div>
 
-        {/* User Profile Card & Logout */}
-        <div className="p-4 border-t border-slate-800/80 bg-slate-950/40">
-          <div className="flex items-center space-x-3 mb-3">
-            <img
-              src={user?.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256'}
-              alt={user?.fullName || 'User'}
-              className="w-9 h-9 rounded-full object-cover border border-slate-700"
-            />
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-slate-200 truncate">{user?.fullName || 'Demo Admin'}</p>
-              <p className="text-[11px] text-slate-400 capitalize truncate flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
-                {user?.role?.replace('_', ' ') || 'Admin'}
-              </p>
+        {/* User Profile Card & Sign Out */}
+        <div className="p-3.5 border-t border-slate-800/80 bg-slate-950/60">
+          <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 mb-2.5">
+            <div className="flex items-center space-x-2.5">
+              <div className="relative">
+                <img
+                  src={user?.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256'}
+                  alt={user?.fullName || 'User'}
+                  className="w-8 h-8 rounded-full object-cover border border-slate-700"
+                />
+                <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-slate-950" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-bold text-slate-100 truncate">{user?.fullName || 'Demo Admin'}</p>
+                <p className="text-[10px] text-slate-400 truncate flex items-center gap-1">
+                  <span className="capitalize">{user?.role?.replace('_', ' ') || 'Admin'}</span>
+                  <span>•</span>
+                  <span className="text-emerald-400 font-medium">Online</span>
+                </p>
+              </div>
             </div>
           </div>
+
           <button
             onClick={logout}
-            className="w-full flex items-center justify-center space-x-2 py-2 px-3 text-xs font-medium text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl transition-colors border border-slate-800 hover:border-rose-500/20"
+            className="w-full flex items-center justify-center space-x-2 py-2 px-3 text-xs font-semibold text-slate-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-xl transition-all border border-slate-800 hover:border-rose-500/30"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span>Sign Out</span>

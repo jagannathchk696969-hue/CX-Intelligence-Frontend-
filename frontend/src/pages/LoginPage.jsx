@@ -48,56 +48,67 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background glow accents */}
-      <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-cyan-600/15 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-grid-pattern selection:bg-indigo-500 selection:text-white">
+      {/* Dynamic ambient glow orbs */}
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-indigo-600/15 rounded-full blur-[140px] pointer-events-none animate-glow-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-600/15 rounded-full blur-[140px] pointer-events-none animate-glow-pulse" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center z-10">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-cyan-500 mx-auto flex items-center justify-center shadow-xl shadow-indigo-500/25 mb-4">
-          <Bot className="w-7 h-7 text-white" />
+        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold mb-4 shadow-sm">
+          <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+          <span>Next-Generation CX Platform</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-          Sign In to CX Intelligence
-        </h2>
-        <p className="mt-2 text-xs text-slate-400">
-          AI-Powered Customer Experience & Telemetry Platform
+
+        <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 mx-auto flex items-center justify-center shadow-xl shadow-indigo-500/30 border border-white/20 mb-4">
+          <Bot className="w-8 h-8 text-white" />
+        </div>
+
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          Sign In to <span className="text-gradient-primary">CX Intelligence</span>
+        </h1>
+        <p className="mt-2 text-xs text-slate-400 max-w-sm mx-auto">
+          Omnichannel conversational support, real-time sentiment telemetry, and grounded resolution intelligence.
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md z-10 px-4 sm:px-0">
-        <Card hover className="p-8 border-slate-800 shadow-2xl glass-panel">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md z-10">
+        <Card elevated className="p-8 border-slate-700/80 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)]">
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
-                Email Address
+              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                Work Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@apex.com"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl pl-9 pr-4 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                  className="w-full bg-slate-900/90 border border-slate-700 hover:border-slate-600 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-inner"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">
-                Password
-              </label>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+                  Password
+                </label>
+                <span className="text-[11px] text-indigo-400 hover:text-indigo-300 cursor-pointer">
+                  Forgot?
+                </span>
+              </div>
               <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl pl-9 pr-4 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                  className="w-full bg-slate-900/90 border border-slate-700 hover:border-slate-600 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-inner"
                 />
               </div>
             </div>
@@ -106,7 +117,7 @@ export const LoginPage = () => {
               type="submit"
               variant="primary"
               size="lg"
-              className="w-full mt-2"
+              className="w-full mt-2 shadow-lg shadow-indigo-600/30"
               isLoading={loading}
               icon={ArrowRight}
             >
@@ -115,21 +126,32 @@ export const LoginPage = () => {
           </form>
 
           {/* Quick Demo Logins */}
-          <div className="mt-6 pt-6 border-t border-slate-800">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 text-center mb-3">
-              One-Click Demo Credentials:
-            </p>
+          <div className="mt-6 pt-5 border-t border-slate-800/80">
+            <div className="flex items-center justify-between mb-2.5">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                Quick Demo Access:
+              </span>
+              <span className="text-[10px] text-cyan-400 font-semibold">1-Click Sign In</span>
+            </div>
+
             <div className="space-y-2">
               <button
                 type="button"
                 onClick={() => handleQuickLogin('admin@apex.com')}
-                className="w-full py-2 px-3 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-xs text-left flex items-center justify-between transition-colors"
+                className="w-full py-2 px-3 rounded-xl bg-slate-900/70 hover:bg-slate-800/90 border border-slate-700/80 hover:border-indigo-500/40 text-xs text-left flex items-center justify-between transition-all group"
               >
-                <div>
-                  <span className="font-semibold text-white">System Admin</span>
-                  <span className="text-[10px] text-slate-400 block">admin@apex.com</span>
+                <div className="flex items-center space-x-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs border border-indigo-500/30 group-hover:scale-105 transition-transform">
+                    A
+                  </div>
+                  <div>
+                    <span className="font-bold text-white group-hover:text-indigo-300 transition-colors">
+                      System Administrator
+                    </span>
+                    <span className="text-[10px] text-slate-400 block font-mono">admin@apex.com</span>
+                  </div>
                 </div>
-                <span className="text-[10px] text-indigo-400 font-semibold px-2 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/20">
+                <span className="text-[10px] text-indigo-300 font-bold px-2 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/30">
                   Select
                 </span>
               </button>
@@ -137,13 +159,20 @@ export const LoginPage = () => {
               <button
                 type="button"
                 onClick={() => handleQuickLogin('agent.sarah@apex.com')}
-                className="w-full py-2 px-3 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-xs text-left flex items-center justify-between transition-colors"
+                className="w-full py-2 px-3 rounded-xl bg-slate-900/70 hover:bg-slate-800/90 border border-slate-700/80 hover:border-cyan-500/40 text-xs text-left flex items-center justify-between transition-all group"
               >
-                <div>
-                  <span className="font-semibold text-white">Support Agent</span>
-                  <span className="text-[10px] text-slate-400 block">agent.sarah@apex.com</span>
+                <div className="flex items-center space-x-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs border border-cyan-500/30 group-hover:scale-105 transition-transform">
+                    S
+                  </div>
+                  <div>
+                    <span className="font-bold text-white group-hover:text-cyan-300 transition-colors">
+                      Support Agent (Sarah)
+                    </span>
+                    <span className="text-[10px] text-slate-400 block font-mono">agent.sarah@apex.com</span>
+                  </div>
                 </div>
-                <span className="text-[10px] text-cyan-400 font-semibold px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">
+                <span className="text-[10px] text-cyan-300 font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30">
                   Select
                 </span>
               </button>
@@ -151,25 +180,44 @@ export const LoginPage = () => {
               <button
                 type="button"
                 onClick={() => handleQuickLogin('alex.turner@gmail.com')}
-                className="w-full py-2 px-3 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-xs text-left flex items-center justify-between transition-colors"
+                className="w-full py-2 px-3 rounded-xl bg-slate-900/70 hover:bg-slate-800/90 border border-slate-700/80 hover:border-emerald-500/40 text-xs text-left flex items-center justify-between transition-all group"
               >
-                <div>
-                  <span className="font-semibold text-white">Customer Account</span>
-                  <span className="text-[10px] text-slate-400 block">alex.turner@gmail.com</span>
+                <div className="flex items-center space-x-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs border border-emerald-500/30 group-hover:scale-105 transition-transform">
+                    C
+                  </div>
+                  <div>
+                    <span className="font-bold text-white group-hover:text-emerald-300 transition-colors">
+                      Customer (Alex Turner)
+                    </span>
+                    <span className="text-[10px] text-slate-400 block font-mono">alex.turner@gmail.com</span>
+                  </div>
                 </div>
-                <span className="text-[10px] text-emerald-400 font-semibold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">
+                <span className="text-[10px] text-emerald-300 font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30">
                   Select
                 </span>
               </button>
             </div>
           </div>
 
-          <div className="mt-4 text-center">
-            <Link to="/register" className="text-xs text-indigo-400 hover:text-indigo-300 font-medium">
-              Need a new enterprise tenant account? Register here
+          <div className="mt-5 text-center">
+            <Link to="/register" className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold transition-colors">
+              New business tenant? Register your organization →
             </Link>
           </div>
         </Card>
+
+        {/* Enterprise trust badges */}
+        <div className="mt-6 flex items-center justify-center space-x-4 text-[11px] text-slate-400">
+          <span className="flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+            <span>SOC 2 Type II</span>
+          </span>
+          <span>•</span>
+          <span>HIPAA Compliant</span>
+          <span>•</span>
+          <span>256-bit TLS</span>
+        </div>
       </div>
     </div>
   );

@@ -42,24 +42,30 @@ export const DashboardOverviewPage = () => {
   return (
     <div className="space-y-6">
       {/* Page Header with Date Filter */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-800/60">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Executive CX Intelligence</h1>
+          <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-300 text-[10px] font-bold uppercase tracking-wider mb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Autonomous CX Telemetry Active</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Executive <span className="text-gradient-primary">CX Intelligence</span>
+          </h1>
           <p className="text-xs text-slate-400 mt-1">
-            Real-time customer experience monitoring, AI resolution telemetry, and sentiment tracking.
+            Real-time customer experience health, automated AI resolution telemetry, and sentiment monitoring.
           </p>
         </div>
 
         {/* Date Filter Pills */}
-        <div className="inline-flex rounded-xl p-1 bg-slate-800/80 border border-slate-700/80 self-start sm:self-auto">
+        <div className="inline-flex rounded-xl p-1 bg-slate-900/90 border border-slate-700/80 self-start sm:self-auto shadow-inner">
           {[7, 30, 90].map((days) => (
             <button
               key={days}
               onClick={() => setPeriod(days)}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
                 period === days
-                  ? 'bg-indigo-600 text-white shadow-md'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-md shadow-indigo-600/30'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
               }`}
             >
               Last {days} Days

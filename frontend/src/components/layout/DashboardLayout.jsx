@@ -9,7 +9,11 @@ export const DashboardLayout = () => {
   const [liveChatOpen, setLiveChatOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 flex relative">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex relative overflow-x-hidden selection:bg-indigo-500 selection:text-white">
+      {/* Ambient background lighting */}
+      <div className="fixed top-0 left-1/4 w-[600px] h-[400px] bg-indigo-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="fixed bottom-10 right-1/4 w-[500px] h-[350px] bg-cyan-600/10 rounded-full blur-[130px] pointer-events-none -z-10" />
+
       {/* Sidebar Navigation */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 

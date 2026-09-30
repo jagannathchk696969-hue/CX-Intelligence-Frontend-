@@ -118,17 +118,21 @@ export const CustomerPortalPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col justify-between text-slate-100">
+    <div className="min-h-screen bg-slate-950 flex flex-col justify-between text-slate-100 relative overflow-hidden bg-grid-pattern selection:bg-indigo-500 selection:text-white">
+      {/* Ambient lighting */}
+      <div className="absolute top-0 left-1/3 w-[600px] h-[350px] bg-indigo-600/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-[500px] h-[350px] bg-cyan-600/10 rounded-full blur-[140px] pointer-events-none" />
+
       {/* Top Banner Header */}
-      <header className="h-16 glass-panel border-b border-slate-800 px-6 flex items-center justify-between sticky top-0 z-30">
+      <header className="h-16 glass-panel border-b border-slate-800/80 px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30 backdrop-blur-2xl">
         <div className="flex items-center space-x-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white shadow-lg">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-indigo-700 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25 border border-white/15">
             <Bot className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <h1 className="text-sm font-bold text-white tracking-tight">Apex Customer Support Live</h1>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <h1 className="text-sm sm:text-base font-extrabold text-white tracking-tight">Apex Support Live</h1>
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             </div>
             <div className="flex items-center space-x-1.5 text-[11px] text-slate-400">
               <span>Customer:</span>
@@ -141,7 +145,7 @@ export const CustomerPortalPage = () => {
                     handleReset(cust);
                   }
                 }}
-                className="bg-slate-800 border border-slate-700 rounded px-1.5 py-0.5 text-xs text-cyan-300 focus:outline-none"
+                className="bg-slate-900/90 border border-slate-700 rounded-md px-2 py-0.5 text-xs text-cyan-300 focus:outline-none focus:border-cyan-400 font-medium"
               >
                 {DEMO_CUSTOMERS.map((c) => (
                   <option key={c.id} value={c.id}>
@@ -169,7 +173,7 @@ export const CustomerPortalPage = () => {
             icon={Star}
             onClick={() => setFeedbackOpen(true)}
           >
-            Leave Feedback
+            Feedback
           </Button>
           <Button
             variant="danger"
@@ -181,7 +185,7 @@ export const CustomerPortalPage = () => {
           </Button>
           <Link
             to="/dashboard"
-            className="text-xs text-indigo-400 hover:text-indigo-300 font-medium hidden sm:inline-block ml-2"
+            className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold hidden md:inline-block ml-2 transition-colors"
           >
             Agent Workspace →
           </Link>
@@ -189,8 +193,11 @@ export const CustomerPortalPage = () => {
       </header>
 
       {/* Main Chat Container */}
-      <main className="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-6 flex flex-col justify-between">
-        <div className="flex-1 glass-panel border border-slate-800 rounded-2xl flex flex-col overflow-hidden shadow-2xl h-[70vh]">
+      <main className="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-6 flex flex-col justify-between z-10">
+        <div className="flex-1 glass-panel-elevated border border-slate-700/80 rounded-2xl flex flex-col overflow-hidden shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] h-[75vh]">
+          {/* Subtle top edge light reflection */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-500/40 to-transparent pointer-events-none" />
+
           {/* Scrollable messages */}
           <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-2">
             {messages.map((m) => (
@@ -205,7 +212,7 @@ export const CustomerPortalPage = () => {
           </div>
 
           {/* Prompt chips and input */}
-          <div className="p-4 border-t border-slate-800 bg-slate-950/70 space-y-3">
+          <div className="p-4 border-t border-slate-800/80 bg-slate-950/80 space-y-3">
             <SuggestedQuestions
               questions={SUGGESTED_QUESTIONS}
               onSelect={(q) => handleSendMessage(q)}
@@ -223,7 +230,7 @@ export const CustomerPortalPage = () => {
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="Type your message (e.g. Can you explain your 30-day refund policy?)..."
-                className="flex-1 bg-slate-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="flex-1 bg-slate-900/90 border border-slate-700/80 hover:border-slate-600 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-inner"
               />
               <Button type="submit" variant="primary" size="md" isLoading={loading} icon={Send}>
                 Send
@@ -234,8 +241,8 @@ export const CustomerPortalPage = () => {
       </main>
 
       {/* Footer */}
-      <footer className="py-3 px-6 text-center text-[11px] text-slate-400 border-t border-slate-800/80 bg-slate-950/40">
-        Powered by CX Intelligence Grounded AI Engine • TLS 1.3 End-to-End Encrypted
+      <footer className="py-3 px-6 text-center text-[11px] text-slate-400 border-t border-slate-800/80 bg-slate-950/60 z-10">
+        Powered by CX Intelligence Grounded AI Engine • TLS 1.3 End-to-End Encrypted • Verified Knowledge Grounding
       </footer>
 
       <FeedbackModal

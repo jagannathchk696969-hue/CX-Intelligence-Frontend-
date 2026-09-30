@@ -122,33 +122,38 @@ export const LiveChatWidget = ({ isOpen, onClose, onToggle }) => {
       {!isOpen && (
         <button
           onClick={onToggle}
-          className="fixed bottom-6 right-6 z-50 flex items-center space-x-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-medium text-xs shadow-2xl hover:shadow-cyan-500/30 hover:scale-105 active:scale-95 transition-all duration-200 border border-white/20 animate-fade-in group"
+          className="fixed bottom-6 right-6 z-50 flex items-center space-x-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-cyan-500 via-indigo-600 to-indigo-700 text-white font-bold text-xs shadow-[0_10px_35px_rgba(99,102,241,0.4)] hover:shadow-[0_15px_45px_rgba(99,102,241,0.55)] hover:scale-105 active:scale-95 transition-all duration-200 border border-white/20 animate-fade-in group select-none"
           aria-label="Open Live Chat"
         >
           <div className="relative">
             <Bot className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-            <span className="w-2 h-2 rounded-full bg-emerald-400 absolute -top-0.5 -right-0.5 ring-2 ring-indigo-900 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-emerald-400 absolute -top-0.5 -right-0.5 ring-2 ring-indigo-950 animate-pulse" />
           </div>
-          <span>Customer Live Chat</span>
-          <span className="px-1.5 py-0.5 rounded-full bg-white/20 text-[10px] font-bold">AI</span>
+          <span className="tracking-wide">Customer Live Chat</span>
+          <span className="px-1.5 py-0.5 rounded-full bg-white/20 text-[9px] font-extrabold uppercase tracking-wider">
+            AI 24/7
+          </span>
         </button>
       )}
 
       {/* Floating Messenger Window (when open) */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-full sm:w-[420px] h-[600px] max-h-[85vh] glass-panel border border-slate-700/80 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-slide-up bg-slate-950/95 backdrop-blur-xl">
+        <div className="fixed bottom-6 right-6 z-50 w-full sm:w-[420px] h-[620px] max-h-[85vh] glass-panel-elevated border border-slate-700/80 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden animate-slide-up bg-slate-950/95 backdrop-blur-2xl">
+          {/* Subtle top edge light reflection */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent pointer-events-none" />
+
           {/* Header */}
-          <div className="px-4 py-3 bg-gradient-to-r from-slate-900 to-slate-800 border-b border-slate-700/80 flex items-center justify-between flex-shrink-0">
+          <div className="px-4 py-3.5 bg-gradient-to-r from-slate-900/95 via-slate-850/95 to-slate-900/95 border-b border-slate-800/80 flex items-center justify-between flex-shrink-0">
             <div className="flex items-center space-x-2.5 min-w-0">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white shadow-md flex-shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 border border-white/10 flex-shrink-0">
                 <Bot className="w-4 h-4" />
               </div>
               <div className="min-w-0">
                 <div className="flex items-center space-x-1.5">
-                  <h3 className="text-xs font-bold text-white truncate">Customer Live Chat</h3>
+                  <h3 className="text-xs font-bold text-white tracking-tight truncate">Customer Live Support</h3>
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
                 </div>
-                <div className="flex items-center space-x-1 text-[10px] text-slate-400">
+                <div className="flex items-center space-x-1 text-[10px] text-slate-400 mt-0.5">
                   <span>Chatting as:</span>
                   <select
                     value={selectedCustomer.id}
@@ -156,7 +161,7 @@ export const LiveChatWidget = ({ isOpen, onClose, onToggle }) => {
                       const c = DEMO_CUSTOMERS.find((x) => x.id === e.target.value);
                       if (c) setSelectedCustomer(c);
                     }}
-                    className="bg-slate-800 border border-slate-700 rounded px-1 text-[10px] text-cyan-300 focus:outline-none"
+                    className="bg-slate-800/90 border border-slate-700 rounded-md px-1.5 py-0.2 text-[10px] text-cyan-300 focus:outline-none focus:border-cyan-400"
                   >
                     {DEMO_CUSTOMERS.map((c) => (
                       <option key={c.id} value={c.id}>
@@ -171,8 +176,8 @@ export const LiveChatWidget = ({ isOpen, onClose, onToggle }) => {
             <div className="flex items-center space-x-1">
               <button
                 onClick={handleReset}
-                title="Restart Chat"
-                className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-700/60 transition-colors"
+                title="Restart Chat Session"
+                className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
               </button>
@@ -181,14 +186,14 @@ export const LiveChatWidget = ({ isOpen, onClose, onToggle }) => {
                 target="_blank"
                 rel="noreferrer"
                 title="Open in Full Screen Portal"
-                className="p-1.5 text-slate-400 hover:text-cyan-300 rounded-lg hover:bg-slate-700/60 transition-colors"
+                className="p-1.5 text-slate-400 hover:text-cyan-300 rounded-lg hover:bg-slate-800 transition-colors"
               >
                 <Maximize2 className="w-3.5 h-3.5" />
               </a>
               <button
                 onClick={onClose}
                 title="Close Chat"
-                className="p-1.5 text-slate-400 hover:text-rose-400 rounded-lg hover:bg-slate-700/60 transition-colors"
+                className="p-1.5 text-slate-400 hover:text-rose-400 rounded-lg hover:bg-slate-800 transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -196,16 +201,16 @@ export const LiveChatWidget = ({ isOpen, onClose, onToggle }) => {
           </div>
 
           {/* Quick Actions Bar */}
-          <div className="px-3 py-1.5 bg-slate-900/80 border-b border-slate-800 flex items-center justify-between text-[11px]">
-            <span className="text-slate-400 flex items-center gap-1">
+          <div className="px-3.5 py-2 bg-slate-900/60 border-b border-slate-800/80 flex items-center justify-between text-[11px]">
+            <span className="text-slate-400 flex items-center gap-1.5 font-medium">
               <Sparkles className="w-3 h-3 text-cyan-400" />
-              Grounded in Knowledge Base
+              <span>Grounded Knowledge Base</span>
             </span>
             <div className="flex items-center space-x-2">
               <button
                 type="button"
                 onClick={() => setFeedbackOpen(true)}
-                className="text-slate-400 hover:text-amber-300 flex items-center gap-1 transition-colors"
+                className="text-slate-400 hover:text-amber-300 flex items-center gap-1 transition-colors px-1.5 py-0.5 rounded hover:bg-slate-800"
               >
                 <Star className="w-3 h-3 text-amber-400" />
                 <span>Rate</span>
@@ -213,7 +218,7 @@ export const LiveChatWidget = ({ isOpen, onClose, onToggle }) => {
               <button
                 type="button"
                 onClick={handleEscalate}
-                className="text-slate-400 hover:text-rose-400 flex items-center gap-1 transition-colors"
+                className="text-slate-400 hover:text-rose-400 flex items-center gap-1 transition-colors px-1.5 py-0.5 rounded hover:bg-slate-800"
               >
                 <ShieldAlert className="w-3 h-3 text-rose-400" />
                 <span>Escalate</span>
@@ -222,7 +227,7 @@ export const LiveChatWidget = ({ isOpen, onClose, onToggle }) => {
           </div>
 
           {/* Messages Scroll Area */}
-          <div className="flex-1 p-3.5 overflow-y-auto space-y-2">
+          <div className="flex-1 p-4 overflow-y-auto space-y-2">
             {messages.map((m) => (
               <ChatMessage
                 key={m.id}
@@ -235,14 +240,14 @@ export const LiveChatWidget = ({ isOpen, onClose, onToggle }) => {
           </div>
 
           {/* Prompt Chips */}
-          <div className="px-3 pt-2 pb-1 border-t border-slate-800/80 bg-slate-900/60">
-            <div className="flex items-center space-x-1.5 overflow-x-auto pb-1.5 scrollbar-thin">
+          <div className="px-3.5 pt-2 pb-1.5 border-t border-slate-800/80 bg-slate-900/40">
+            <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none">
               {SUGGESTED_QUESTIONS.slice(0, 3).map((q, idx) => (
                 <button
                   key={idx}
                   type="button"
                   onClick={() => handleSendMessage(q)}
-                  className="whitespace-nowrap text-[11px] px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition-colors flex-shrink-0"
+                  className="whitespace-nowrap text-[11px] px-2.5 py-1 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 hover:border-indigo-500/50 transition-all flex-shrink-0"
                 >
                   {q}
                 </button>
@@ -256,19 +261,19 @@ export const LiveChatWidget = ({ isOpen, onClose, onToggle }) => {
               e.preventDefault();
               handleSendMessage();
             }}
-            className="p-3 border-t border-slate-800 bg-slate-950 flex items-center space-x-2 flex-shrink-0"
+            className="p-3 border-t border-slate-800/80 bg-slate-950 flex items-center space-x-2 flex-shrink-0"
           >
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Ask anything or request support..."
-              className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="flex-1 bg-slate-900/90 border border-slate-700/80 hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all shadow-inner"
             />
             <button
               type="submit"
               disabled={loading || !inputText.trim()}
-              className="p-2 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white disabled:opacity-40 hover:opacity-90 active:scale-95 transition-all shadow-md"
+              className="p-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-indigo-700 text-white disabled:opacity-40 hover:opacity-95 active:scale-95 transition-all shadow-md shadow-indigo-600/25 flex-shrink-0"
             >
               <Send className="w-3.5 h-3.5" />
             </button>

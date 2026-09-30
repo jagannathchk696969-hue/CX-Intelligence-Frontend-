@@ -9,7 +9,7 @@ import { customerService } from '../services/customerService';
 import { useToast } from '../context/ToastContext';
 import { formatDate } from '../utils/formatters';
 import { TICKET_PRIORITIES, TICKET_STATUSES } from '../utils/constants';
-import { Plus, Search, Filter, MessageSquare, AlertCircle } from 'lucide-react';
+import { Plus, Search, Filter, MessageSquare, AlertCircle, Ticket, Sparkles, User, ArrowUpRight } from 'lucide-react';
 
 export const TicketsPage = () => {
   const [tickets, setTickets] = useState([]);
@@ -98,86 +98,122 @@ export const TicketsPage = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-800/80">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Customer Support Tickets</h1>
-          <p className="text-xs text-slate-400 mt-1">
-            Omnichannel ticket queue with automated AI urgency ranking, internal collaboration, and customer replies.
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold mb-2">
+            <Ticket className="w-3.5 h-3.5" />
+            <span>Omnichannel Dispatch Queue</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Support <span className="text-gradient-primary">Tickets</span>
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl leading-relaxed">
+            Collaborative ticket management with automated AI urgency ranking, NLP sentiment detection, and customer correspondence.
           </p>
         </div>
-        <Button variant="primary" size="md" icon={Plus} onClick={() => setCreateOpen(true)}>
-          New Ticket
+        <Button variant="primary" size="md" icon={Plus} onClick={() => setCreateOpen(true)} className="self-start sm:self-auto">
+          Create New Ticket
         </Button>
       </div>
 
       {/* Filter and Search Bar */}
-      <Card hover className="p-4">
+      <div className="glass-panel p-4 rounded-2xl border border-slate-800/80 shadow-lg">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="relative w-full md:w-80">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <div className="relative w-full md:w-88">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by subject, description..."
-              className="w-full bg-slate-800/80 border border-slate-700 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              placeholder="Search by subject, issue description, customer..."
+              className="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl pl-10 pr-4 py-2 text-xs text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 shadow-inner"
             />
           </div>
 
           <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
             {/* Status Filter */}
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-            >
-              <option value="">All Statuses</option>
-              <option value="open">Open</option>
-              <option value="in_progress">In Progress</option>
-              <option value="waiting_for_customer">Waiting on Customer</option>
-              <option value="resolved">Resolved</option>
-              <option value="closed">Closed</option>
-            </select>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-400 hidden sm:inline">Status:</span>
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer"
+              >
+                <option value="">All Statuses</option>
+                <option value="open">Open</option>
+                <option value="in_progress">In Progress</option>
+                <option value="waiting_for_customer">Waiting on Customer</option>
+                <option value="resolved">Resolved</option>
+                <option value="closed">Closed</option>
+              </select>
+            </div>
 
             {/* Priority Filter */}
-            <select
-              value={priorityFilter}
-              onChange={(e) => setPriorityFilter(e.target.value)}
-              className="bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-            >
-              <option value="">All Priorities</option>
-              <option value="urgent">Urgent</option>
-              <option value="high">High</option>
-              <option value="medium">Medium</option>
-              <option value="low">Low</option>
-            </select>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-400 hidden sm:inline">Priority:</span>
+              <select
+                value={priorityFilter}
+                onChange={(e) => setPriorityFilter(e.target.value)}
+                className="bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer"
+              >
+                <option value="">All Priorities</option>
+                <option value="urgent">Urgent</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+
+            {(statusFilter || priorityFilter || search) && (
+              <button
+                onClick={() => {
+                  setStatusFilter('');
+                  setPriorityFilter('');
+                  setSearch('');
+                }}
+                className="text-xs text-indigo-400 hover:text-indigo-300 font-medium px-2 py-1"
+              >
+                Reset Filters
+              </button>
+            )}
           </div>
         </div>
-      </Card>
+      </div>
 
       {/* Ticket Table */}
-      <Card hover className="p-0 overflow-hidden">
+      <div className="glass-panel rounded-2xl border border-slate-800/80 overflow-hidden shadow-2xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/60 border-b border-slate-800 text-slate-400 uppercase tracking-wider text-[11px]">
+            <thead className="bg-slate-950/70 border-b border-slate-800 text-slate-400 uppercase tracking-wider text-[11px]">
               <tr>
-                <th className="py-3 px-4">Subject & Details</th>
-                <th className="py-3 px-4">Customer</th>
-                <th className="py-3 px-4">Priority</th>
-                <th className="py-3 px-4">Status</th>
-                <th className="py-3 px-4">Assigned Agent</th>
-                <th className="py-3 px-4">Created</th>
-                <th className="py-3 px-4 text-right">Action</th>
+                <th className="py-3.5 px-4 font-semibold">Subject & Issue Details</th>
+                <th className="py-3.5 px-4 font-semibold">Customer</th>
+                <th className="py-3.5 px-4 font-semibold">Priority & AI Urgency</th>
+                <th className="py-3.5 px-4 font-semibold">Status</th>
+                <th className="py-3.5 px-4 font-semibold">Assigned Agent</th>
+                <th className="py-3.5 px-4 font-semibold">Created</th>
+                <th className="py-3.5 px-4 font-semibold text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/80">
+            <tbody className="divide-y divide-slate-800/60">
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-slate-400">Loading tickets...</td>
+                  <td colSpan={7} className="py-12 text-center text-slate-400">
+                    <div className="flex flex-col items-center justify-center space-y-2">
+                      <div className="w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+                      <span className="text-xs text-slate-400">Loading tickets queue...</span>
+                    </div>
+                  </td>
                 </tr>
               ) : tickets.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-slate-400">No tickets found matching your query.</td>
+                  <td colSpan={7} className="py-12 text-center text-slate-400">
+                    <div className="flex flex-col items-center justify-center space-y-2">
+                      <Ticket className="w-8 h-8 text-slate-600" />
+                      <p className="text-xs font-medium text-slate-300">No support tickets found matching your query.</p>
+                      <p className="text-[11px] text-slate-500">Try resetting filters or create a new ticket.</p>
+                    </div>
+                  </td>
                 </tr>
               ) : (
                 tickets.map((t) => {
@@ -188,34 +224,46 @@ export const TicketsPage = () => {
                     <tr
                       key={t.id}
                       onClick={() => handleOpenDetail(t)}
-                      className="hover:bg-slate-800/40 cursor-pointer transition-colors"
+                      className="hover:bg-slate-800/40 cursor-pointer transition-colors group"
                     >
                       <td className="py-3.5 px-4 font-medium text-slate-100 max-w-xs">
-                        <div className="truncate font-semibold text-white">{t.subject}</div>
-                        <div className="text-[11px] text-slate-400 truncate">{t.description}</div>
+                        <div className="truncate font-semibold text-white group-hover:text-indigo-300 transition-colors">
+                          {t.subject}
+                        </div>
+                        <div className="text-[11px] text-slate-400 truncate mt-0.5">{t.description}</div>
                       </td>
                       <td className="py-3.5 px-4 text-slate-300">
-                        {t.customer?.name || 'Client'}
+                        <div className="flex items-center gap-2">
+                          <div className="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px] font-semibold text-cyan-400">
+                            {t.customer?.name?.[0] || 'C'}
+                          </div>
+                          <span className="font-medium text-slate-200">{t.customer?.name || 'Client'}</span>
+                        </div>
                       </td>
                       <td className="py-3.5 px-4">
-                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${pConf.color}`}>
+                        <span className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full border shadow-sm ${pConf.color}`}>
                           {pConf.label}
                         </span>
                         {t.ai_suggested_priority && t.ai_suggested_priority !== t.priority && (
-                          <span className="block text-[9px] text-amber-400 mt-0.5">
-                            AI: {t.ai_suggested_priority}
-                          </span>
+                          <div className="flex items-center gap-1 text-[10px] text-amber-400 mt-1 font-medium">
+                            <Sparkles className="w-2.5 h-2.5" />
+                            <span>AI: {t.ai_suggested_priority}</span>
+                          </div>
                         )}
                       </td>
                       <td className="py-3.5 px-4">
-                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${sConf.color}`}>
+                        <span className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full border shadow-sm ${sConf.color}`}>
                           {sConf.label}
                         </span>
                       </td>
                       <td className="py-3.5 px-4 text-slate-300">
-                        {t.assignedAgent?.fullName || <span className="text-slate-500 italic">Unassigned</span>}
+                        {t.assignedAgent?.fullName ? (
+                          <span className="text-slate-200 font-medium">{t.assignedAgent.fullName}</span>
+                        ) : (
+                          <span className="text-slate-500 italic">Unassigned</span>
+                        )}
                       </td>
-                      <td className="py-3.5 px-4 text-slate-400 whitespace-nowrap">
+                      <td className="py-3.5 px-4 text-slate-400 whitespace-nowrap font-mono text-[11px]">
                         {formatDate(t.created_at)}
                       </td>
                       <td className="py-3.5 px-4 text-right">
@@ -224,9 +272,10 @@ export const TicketsPage = () => {
                             e.stopPropagation();
                             handleOpenDetail(t);
                           }}
-                          className="px-2.5 py-1 rounded-lg bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 text-xs font-medium"
+                          className="px-3 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 text-xs font-semibold border border-indigo-500/20 hover:border-indigo-500/40 transition-all inline-flex items-center gap-1"
                         >
-                          View Thread
+                          <span>Thread</span>
+                          <ArrowUpRight className="w-3 h-3" />
                         </button>
                       </td>
                     </tr>
@@ -236,7 +285,7 @@ export const TicketsPage = () => {
             </tbody>
           </table>
         </div>
-      </Card>
+      </div>
 
       {/* Ticket Modals */}
       <TicketDetailModal

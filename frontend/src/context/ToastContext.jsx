@@ -28,27 +28,27 @@ export const ToastProvider = ({ children }) => {
   return (
     <ToastContext.Provider value={{ addToast, success, error, info }}>
       {children}
-      <div className="fixed bottom-4 right-4 z-50 flex flex-col space-y-2 pointer-events-none max-w-sm w-full">
+      <div className="fixed bottom-5 right-5 z-50 flex flex-col space-y-2.5 pointer-events-none max-w-sm w-full">
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`pointer-events-auto flex items-center justify-between p-4 rounded-xl border shadow-xl backdrop-blur-md transition-all duration-300 animate-fade-in ${
+            className={`pointer-events-auto flex items-center justify-between p-4 rounded-2xl border shadow-2xl backdrop-blur-2xl transition-all duration-300 animate-slide-up ${
               toast.type === 'success'
-                ? 'bg-slate-900/90 border-emerald-500/30 text-emerald-300'
+                ? 'bg-slate-900/95 border-emerald-500/30 text-emerald-300 shadow-emerald-950/40'
                 : toast.type === 'error'
-                ? 'bg-slate-900/90 border-rose-500/30 text-rose-300'
-                : 'bg-slate-900/90 border-indigo-500/30 text-indigo-300'
+                ? 'bg-slate-900/95 border-rose-500/30 text-rose-300 shadow-rose-950/40'
+                : 'bg-slate-900/95 border-indigo-500/30 text-indigo-300 shadow-indigo-950/40'
             }`}
           >
             <div className="flex items-center space-x-3">
               {toast.type === 'success' && <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />}
               {toast.type === 'error' && <AlertCircle className="w-5 h-5 text-rose-400 flex-shrink-0" />}
               {toast.type === 'info' && <Info className="w-5 h-5 text-indigo-400 flex-shrink-0" />}
-              <p className="text-sm font-medium text-slate-100">{toast.message}</p>
+              <p className="text-xs sm:text-sm font-medium text-slate-100 leading-snug">{toast.message}</p>
             </div>
             <button
               onClick={() => removeToast(toast.id)}
-              className="text-slate-400 hover:text-white p-1 rounded-lg ml-2"
+              className="text-slate-400 hover:text-white p-1 rounded-lg ml-2 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
