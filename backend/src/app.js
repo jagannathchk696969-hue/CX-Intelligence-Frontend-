@@ -9,8 +9,11 @@ import apiRouter from './routes/index.js';
 
 const app = express();
 
-// Security Headers
-app.use(helmet());
+// Security Headers with cross-origin support for Vercel <-> Render
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+  crossOriginOpenerPolicy: { policy: 'unsafe-none' },
+}));
 
 // CORS configuration
 app.use(cors({
