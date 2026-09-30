@@ -3,7 +3,7 @@ import { Menu, Search, Bell, Sparkles, ExternalLink, User } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
 
-export const TopNavbar = ({ onOpenSidebar }) => {
+export const TopNavbar = ({ onOpenSidebar, onToggleLiveChat }) => {
   const { user } = useAuth();
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -31,15 +31,26 @@ export const TopNavbar = ({ onOpenSidebar }) => {
 
       {/* Right side: AI status indicator, Customer Portal Link, Notification bell, User info */}
       <div className="flex items-center space-x-3">
-        {/* Customer Portal Preview Link */}
-        <Link
-          to="/customer-chat"
-          target="_blank"
-          className="hidden md:inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-xl bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 hover:bg-cyan-500/20 transition-colors"
-        >
-          <span>Customer Live Chat</span>
-          <ExternalLink className="w-3.5 h-3.5" />
-        </Link>
+        {/* Customer Portal / Live Chat Trigger */}
+        <div className="inline-flex items-center rounded-xl bg-cyan-500/10 border border-cyan-500/20 overflow-hidden shadow-sm">
+          <button
+            type="button"
+            onClick={onToggleLiveChat}
+            className="inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-semibold text-cyan-300 hover:bg-cyan-500/20 transition-colors"
+            title="Open Live Chat Widget"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Customer Live Chat</span>
+          </button>
+          <Link
+            to="/customer-chat"
+            target="_blank"
+            className="p-1.5 text-cyan-400 hover:text-cyan-200 hover:bg-cyan-500/20 border-l border-cyan-500/20 transition-colors"
+            title="Open Full Screen Portal in New Tab"
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+          </Link>
+        </div>
 
         {/* AI Health Badge */}
         <div className="hidden lg:flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-slate-800/60 border border-slate-700/60 text-xs">

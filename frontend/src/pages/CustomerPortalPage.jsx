@@ -7,15 +7,22 @@ import { FeedbackModal } from '../components/chatbot/FeedbackModal';
 import { chatService } from '../services/chatService';
 import { useToast } from '../context/ToastContext';
 import { SUGGESTED_QUESTIONS } from '../utils/constants';
-import { Bot, Send, ShieldAlert, Sparkles, Star, MessageSquare } from 'lucide-react';
+import { Bot, Send, ShieldAlert, Sparkles, Star, MessageSquare, RotateCcw, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const DEMO_CUSTOMERS = [
+  { id: 'c1000000-0000-0000-0000-000000000001', name: 'Alex Turner', tier: 'Starter', email: 'alex.turner@gmail.com' },
+  { id: 'c1000000-0000-0000-0000-000000000002', name: 'Maya Lin', tier: 'Enterprise', email: 'maya.lin@enterprise.io' },
+  { id: 'c1000000-0000-0000-0000-000000000003', name: 'David Kim', tier: 'Growth', email: 'david.kim@techscale.com' },
+];
+
 export const CustomerPortalPage = () => {
+  const [selectedCustomer, setSelectedCustomer] = useState(DEMO_CUSTOMERS[0]);
   const [messages, setMessages] = useState([
     {
       id: 'cust_welcome_1',
       sender_type: 'ai_assistant',
-      content: 'Hello! I am your AI Customer Support Assistant. How can I help you today? You can ask me about billing plans, 30-day money-back refunds, API documentation, or request to connect with a live support agent.',
+      content: 'Hello Alex! I am your AI Customer Support Assistant. How can I help you today? You can ask me about billing plans, 30-day money-back refunds, API documentation, or request to connect with a live support agent.',
       created_at: new Date().toISOString(),
       metadata: { grounded: true }
     }
@@ -36,6 +43,20 @@ export const CustomerPortalPage = () => {
     scrollToBottom();
   }, [messages, loading]);
 
+  const handleReset = (customer = selectedCustomer) => {
+    setConversationId(null);
+    setMessages([
+      {
+        id: `cust_welcome_${Date.now()}`,
+        sender_type: 'ai_assistant',
+        content: `Hello ${customer.name}! How can our AI assistant help you today? Ask about billing, account upgrades, or security policies.`,
+        created_at: new Date().toISOString(),
+        metadata: { grounded: true }
+      }
+    ]);
+    toast.info('New chat session started.');
+  };
+
   const handleSendMessage = async (textToSend = null) => {
     const text = textToSend || inputText;
     if (!text.trim() || loading) return;
@@ -55,7 +76,7 @@ export const CustomerPortalPage = () => {
       const res = await chatService.sendMessage({
         message: text,
         conversationId,
-        customerId: 'c1000000-0000-0000-0000-000000000001', // Demo customer: Alex Turner
+        customerId: selectedCustomer.id,
       });
 
       setConversationId(res.conversationId);
@@ -105,15 +126,43 @@ export const CustomerPortalPage = () => {
             <Bot className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-sm font-bold text-white tracking-tight">Apex Customer Support Live</h1>
-            <p className="text-[11px] text-emerald-400 font-medium flex items-center gap-1">
+            <div className="flex items-center space-x-2">
+              <h1 className="text-sm font-bold text-white tracking-tight">Apex Customer Support Live</h1>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              AI Assistant Online • Instant Responses
-            </p>
+            </div>
+            <div className="flex items-center space-x-1.5 text-[11px] text-slate-400">
+              <span>Customer:</span>
+              <select
+                value={selectedCustomer.id}
+                onChange={(e) => {
+                  const cust = DEMO_CUSTOMERS.find((x) => x.id === e.target.value);
+                  if (cust) {
+                    setSelectedCustomer(cust);
+                    handleReset(cust);
+                  }
+                }}
+                className="bg-slate-800 border border-slate-700 rounded px-1.5 py-0.5 text-xs text-cyan-300 focus:outline-none"
+              >
+                {DEMO_CUSTOMERS.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name} ({c.tier})
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3">
+          <Button
+            variant="ghost"
+            size="sm"
+            icon={RotateCcw}
+            onClick={() => handleReset()}
+            title="Start New Session"
+          >
+            New Chat
+          </Button>
           <Button
             variant="outline"
             size="sm"

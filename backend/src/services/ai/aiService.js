@@ -35,12 +35,12 @@ Return STRICT JSON only, matching this exact schema:
   "escalationReason": "string explanation if escalation recommended or null"
 }`;
 
-      const response = await genAIClient.interactions.create({
+      const response = await genAIClient.models.generateContent({
         model: config.ai.modelName,
-        input: prompt,
+        contents: prompt,
       });
 
-      const responseText = response.output_text?.trim() || '';
+      const responseText = response.text?.trim() || '';
       const cleaned = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
       return JSON.parse(cleaned);
     } catch (err) {
@@ -69,13 +69,15 @@ APPROVED BUSINESS KNOWLEDGE BASE:
 ${articlesContext || 'No approved articles available.'}
 `;
 
-      const response = await genAIClient.interactions.create({
+      const response = await genAIClient.models.generateContent({
         model: config.ai.modelName,
-        input: `Customer name: ${customer?.name || 'Customer'}\nCustomer question: ${message}\n\nPlease respond helpfully and ground your answer strictly in the approved knowledge base.`,
-        system_instruction: systemInstruction,
+        contents: `Customer name: ${customer?.name || 'Customer'}\nCustomer question: ${message}\n\nPlease respond helpfully and ground your answer strictly in the approved knowledge base.`,
+        config: {
+          systemInstruction,
+        },
       });
 
-      const replyText = response.output_text || '';
+      const replyText = response.text || '';
 
       // Check if grounded in an article
       const citedArticle = knowledgeArticles.find(a => replyText.toLowerCase().includes(a.title.toLowerCase())) || null;
