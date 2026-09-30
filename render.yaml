@@ -1,0 +1,56 @@
+services:
+  # -------------------------------------------------------------
+  # 1. BACKEND WEB SERVICE (Node.js / Express API)
+  # -------------------------------------------------------------
+  - type: web
+    name: cx-intelligence-backend
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: SUPABASE_URL
+        value: https://savpdcexazvwiysvrtsc.supabase.co
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: AI_MOCK_MODE
+        value: false
+      - key: AI_MODEL_NAME
+        value: gemini-2.5-flash
+
+  # -------------------------------------------------------------
+  # 2. FRONTEND STATIC SITE (React + Vite)
+  # -------------------------------------------------------------
+  - type: web
+    name: cx-intelligence-frontend
+    runtime: static
+    plan: free
+    region: oregon
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: cx-intelligence-backend
+          property: host

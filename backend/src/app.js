@@ -14,7 +14,22 @@ app.use(helmet());
 
 // CORS configuration
 app.use(cors({
-  origin: [config.frontendUrl, 'http://localhost:5173', 'http://127.0.0.1:5173'],
+  origin: (origin, callback) => {
+    // Allow server-to-server, mobile, or curl requests without origin header
+    if (!origin) return callback(null, true);
+    // Allow any Render or Vercel deployed domains, localhost, or configured frontendUrl
+    if (
+      origin.includes('onrender.com') ||
+      origin.includes('vercel.app') ||
+      origin.includes('localhost') ||
+      origin.includes('127.0.0.1') ||
+      (config.frontendUrl && config.frontendUrl !== '*' && origin === config.frontendUrl)
+    ) {
+      return callback(null, true);
+    }
+    // Fallback permissive for hackathon live judging
+    return callback(null, true);
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
