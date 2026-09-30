@@ -1,0 +1,203 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Button } from '../components/common/Button';
+import { Card } from '../components/common/Card';
+import { ChatMessage, TypingIndicator } from '../components/chatbot/ChatMessage';
+import { SuggestedQuestions } from '../components/chatbot/SuggestedQuestions';
+import { FeedbackModal } from '../components/chatbot/FeedbackModal';
+import { chatService } from '../services/chatService';
+import { useToast } from '../context/ToastContext';
+import { SUGGESTED_QUESTIONS } from '../utils/constants';
+import { Bot, Send, ShieldAlert, Sparkles, Star, MessageSquare } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+export const CustomerPortalPage = () => {
+  const [messages, setMessages] = useState([
+    {
+      id: 'cust_welcome_1',
+      sender_type: 'ai_assistant',
+      content: 'Hello! I am your AI Customer Support Assistant. How can I help you today? You can ask me about billing plans, 30-day money-back refunds, API documentation, or request to connect with a live support agent.',
+      created_at: new Date().toISOString(),
+      metadata: { grounded: true }
+    }
+  ]);
+  const [inputText, setInputText] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [conversationId, setConversationId] = useState(null);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+
+  const messagesEndRef = useRef(null);
+  const toast = useToast();
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, loading]);
+
+  const handleSendMessage = async (textToSend = null) => {
+    const text = textToSend || inputText;
+    if (!text.trim() || loading) return;
+
+    const userMessage = {
+      id: `usr_${Date.now()}`,
+      sender_type: 'customer',
+      content: text,
+      created_at: new Date().toISOString(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setInputText('');
+    setLoading(true);
+
+    try {
+      const res = await chatService.sendMessage({
+        message: text,
+        conversationId,
+        customerId: 'c1000000-0000-0000-0000-000000000001', // Demo customer: Alex Turner
+      });
+
+      setConversationId(res.conversationId);
+      setMessages((prev) => [
+        ...prev.map((m) => (m.id === userMessage.id ? res.customerMessage : m)),
+        res.aiMessage,
+      ]);
+
+      if (res.autoEscalated) {
+        toast.info('Your conversation has been routed to Tier 2 live support for expedited assistance.');
+      }
+    } catch (err) {
+      toast.error('Could not reach AI assistant. Please try again shortly.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleEscalate = async () => {
+    if (!conversationId) {
+      toast.info('Please send a message first to establish your live session.');
+      return;
+    }
+    try {
+      await chatService.escalateConversation(conversationId, 'Customer requested human support from portal');
+      toast.success('Your session is escalated to a live agent. Someone will respond shortly.');
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `sys_${Date.now()}`,
+          sender_type: 'system',
+          content: 'Session escalated to Tier 2 support engineer. An agent is reviewing your inquiry.',
+          created_at: new Date().toISOString(),
+        }
+      ]);
+    } catch (err) {
+      toast.error('Failed to escalate session');
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-950 flex flex-col justify-between text-slate-100">
+      {/* Top Banner Header */}
+      <header className="h-16 glass-panel border-b border-slate-800 px-6 flex items-center justify-between sticky top-0 z-30">
+        <div className="flex items-center space-x-3">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white shadow-lg">
+            <Bot className="w-5 h-5" />
+          </div>
+          <div>
+            <h1 className="text-sm font-bold text-white tracking-tight">Apex Customer Support Live</h1>
+            <p className="text-[11px] text-emerald-400 font-medium flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              AI Assistant Online • Instant Responses
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center space-x-3">
+          <Button
+            variant="outline"
+            size="sm"
+            icon={Star}
+            onClick={() => setFeedbackOpen(true)}
+          >
+            Leave Feedback
+          </Button>
+          <Button
+            variant="danger"
+            size="sm"
+            icon={ShieldAlert}
+            onClick={handleEscalate}
+          >
+            Speak to Human
+          </Button>
+          <Link
+            to="/dashboard"
+            className="text-xs text-indigo-400 hover:text-indigo-300 font-medium hidden sm:inline-block ml-2"
+          >
+            Agent Workspace →
+          </Link>
+        </div>
+      </header>
+
+      {/* Main Chat Container */}
+      <main className="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-6 flex flex-col justify-between">
+        <div className="flex-1 glass-panel border border-slate-800 rounded-2xl flex flex-col overflow-hidden shadow-2xl h-[70vh]">
+          {/* Scrollable messages */}
+          <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-2">
+            {messages.map((m) => (
+              <ChatMessage
+                key={m.id}
+                message={m}
+                onOpenFeedback={() => setFeedbackOpen(true)}
+              />
+            ))}
+            {loading && <TypingIndicator />}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Prompt chips and input */}
+          <div className="p-4 border-t border-slate-800 bg-slate-950/70 space-y-3">
+            <SuggestedQuestions
+              questions={SUGGESTED_QUESTIONS}
+              onSelect={(q) => handleSendMessage(q)}
+            />
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSendMessage();
+              }}
+              className="flex items-center space-x-2"
+            >
+              <input
+                type="text"
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                placeholder="Type your message (e.g. Can you explain your 30-day refund policy?)..."
+                className="flex-1 bg-slate-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              />
+              <Button type="submit" variant="primary" size="md" isLoading={loading} icon={Send}>
+                Send
+              </Button>
+            </form>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="py-3 px-6 text-center text-[11px] text-slate-400 border-t border-slate-800/80 bg-slate-950/40">
+        Powered by CX Intelligence Grounded AI Engine • TLS 1.3 End-to-End Encrypted
+      </footer>
+
+      <FeedbackModal
+        isOpen={feedbackOpen}
+        onClose={() => setFeedbackOpen(false)}
+        onSubmit={async (data) => {
+          await chatService.submitFeedback(data);
+          toast.success('Thank you for rating our support assistant!');
+        }}
+        conversationId={conversationId}
+      />
+    </div>
+  );
+};
