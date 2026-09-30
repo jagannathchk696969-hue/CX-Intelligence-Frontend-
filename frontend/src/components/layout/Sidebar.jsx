@@ -16,7 +16,7 @@ import {
   Cpu
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { APP_NAME } from '../../utils/constants';
+import { CXLogo } from '../common/CXLogo';
 
 export const Sidebar = ({ isOpen, onClose }) => {
   const { user, logout } = useAuth();
@@ -64,20 +64,12 @@ export const Sidebar = ({ isOpen, onClose }) => {
         }`}
       >
         {/* Brand Header */}
-        <div className="h-16 flex items-center px-5 border-b border-slate-800/80 justify-between relative overflow-hidden">
-          {/* Subtle logo glow */}
-          <div className="absolute -top-10 -left-10 w-24 h-24 bg-indigo-500/15 rounded-full blur-xl pointer-events-none" />
+        <div className="h-16 flex items-center px-4 border-b border-slate-800/80 justify-between relative overflow-hidden">
+          {/* Subtle violet glow */}
+          <div className="absolute -top-10 -left-10 w-24 h-24 bg-violet-500/20 rounded-full blur-xl pointer-events-none" />
 
-          <div className="flex items-center space-x-3 z-10">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-indigo-500/25 border border-white/15">
-              <Bot className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <span className="font-extrabold text-white text-base tracking-tight">{APP_NAME}</span>
-              <span className="block text-[10px] text-cyan-400 font-semibold tracking-wider uppercase">
-                Enterprise AI CX
-              </span>
-            </div>
+          <div className="flex items-center z-10">
+            <CXLogo size="md" subtitle="AI Enterprise" />
           </div>
         </div>
 
@@ -99,7 +91,7 @@ export const Sidebar = ({ isOpen, onClose }) => {
                     className={({ isActive }) =>
                       `relative flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 group ${
                         isActive
-                          ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-600/30 border border-indigo-400/30'
+                          ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-600/30 border border-violet-400/30'
                           : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 hover:border-slate-700/60 border border-transparent'
                       }`
                     }

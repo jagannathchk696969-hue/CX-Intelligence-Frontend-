@@ -9,6 +9,7 @@ import { useToast } from '../context/ToastContext';
 import { SUGGESTED_QUESTIONS } from '../utils/constants';
 import { Bot, Send, ShieldAlert, Sparkles, Star, MessageSquare, RotateCcw, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { CXLogo } from '../components/common/CXLogo';
 
 const DEMO_CUSTOMERS = [
   { id: 'c1000000-0000-0000-0000-000000000001', name: 'Alex Turner', tier: 'Starter', email: 'alex.turner@gmail.com' },
@@ -126,16 +127,10 @@ export const CustomerPortalPage = () => {
       {/* Top Banner Header */}
       <header className="h-16 glass-panel border-b border-slate-800/80 px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30 backdrop-blur-2xl">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-indigo-700 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25 border border-white/15">
-            <Bot className="w-5 h-5" />
-          </div>
-          <div>
-            <div className="flex items-center space-x-2">
-              <h1 className="text-sm sm:text-base font-extrabold text-white tracking-tight">Apex Support Live</h1>
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            </div>
+          <CXLogo size="md" subtitle="Live Support Portal" />
+          <div className="hidden sm:block border-l border-slate-800 pl-3">
             <div className="flex items-center space-x-1.5 text-[11px] text-slate-400">
-              <span>Customer:</span>
+              <span className="font-medium">Active Customer:</span>
               <select
                 value={selectedCustomer.id}
                 onChange={(e) => {
@@ -145,7 +140,7 @@ export const CustomerPortalPage = () => {
                     handleReset(cust);
                   }
                 }}
-                className="bg-slate-900/90 border border-slate-700 rounded-md px-2 py-0.5 text-xs text-cyan-300 focus:outline-none focus:border-cyan-400 font-medium"
+                className="bg-slate-900/90 border border-slate-700/80 rounded-lg px-2.5 py-1 text-xs text-cyan-300 focus:outline-none focus:border-cyan-400 font-medium cursor-pointer"
               >
                 {DEMO_CUSTOMERS.map((c) => (
                   <option key={c.id} value={c.id}>

@@ -122,14 +122,14 @@ export const LiveChatWidget = ({ isOpen, onClose, onToggle }) => {
       {!isOpen && (
         <button
           onClick={onToggle}
-          className="fixed bottom-6 right-6 z-50 flex items-center space-x-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-cyan-500 via-indigo-600 to-indigo-700 text-white font-bold text-xs shadow-[0_10px_35px_rgba(99,102,241,0.4)] hover:shadow-[0_15px_45px_rgba(99,102,241,0.55)] hover:scale-105 active:scale-95 transition-all duration-200 border border-white/20 animate-fade-in group select-none"
+          className="fixed bottom-6 right-6 z-50 flex items-center space-x-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-xs shadow-[0_10px_35px_rgba(139,92,246,0.4)] hover:shadow-[0_15px_45px_rgba(139,92,246,0.55)] hover:scale-105 active:scale-95 transition-all duration-200 border border-white/20 animate-fade-in group select-none"
           aria-label="Open Live Chat"
         >
           <div className="relative">
             <Bot className="w-5 h-5 group-hover:rotate-12 transition-transform" />
             <span className="w-2 h-2 rounded-full bg-emerald-400 absolute -top-0.5 -right-0.5 ring-2 ring-indigo-950 animate-pulse" />
           </div>
-          <span className="tracking-wide">Customer Live Chat</span>
+          <span className="tracking-wide">CX Intelligence Live Chat</span>
           <span className="px-1.5 py-0.5 rounded-full bg-white/20 text-[9px] font-extrabold uppercase tracking-wider">
             AI 24/7
           </span>
@@ -140,12 +140,12 @@ export const LiveChatWidget = ({ isOpen, onClose, onToggle }) => {
       {isOpen && (
         <div className="fixed bottom-6 right-6 z-50 w-full sm:w-[420px] h-[620px] max-h-[85vh] glass-panel-elevated border border-slate-700/80 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden animate-slide-up bg-slate-950/95 backdrop-blur-2xl">
           {/* Subtle top edge light reflection */}
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-400/40 to-transparent pointer-events-none" />
 
           {/* Header */}
           <div className="px-4 py-3.5 bg-gradient-to-r from-slate-900/95 via-slate-850/95 to-slate-900/95 border-b border-slate-800/80 flex items-center justify-between flex-shrink-0">
             <div className="flex items-center space-x-2.5 min-w-0">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 border border-white/10 flex-shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-violet-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white shadow-md shadow-violet-500/20 border border-white/10 flex-shrink-0">
                 <Bot className="w-4 h-4" />
               </div>
               <div className="min-w-0">

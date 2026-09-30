@@ -65,6 +65,14 @@
     box-shadow: 0 0 35px -5px rgba(244, 63, 94, 0.35);
   }
 
+  .glow-violet {
+    box-shadow: 0 0 45px -5px rgba(139, 92, 246, 0.4);
+  }
+
+  .glow-purple {
+    box-shadow: 0 0 50px -5px rgba(168, 85, 247, 0.45);
+  }
+
   .bg-grid-pattern {
     background-size: 32px 32px;
     background-image: 
@@ -74,6 +82,10 @@
 
   .text-gradient-primary {
     @apply bg-gradient-to-r from-indigo-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-purple {
+    @apply bg-gradient-to-r from-violet-400 via-purple-300 to-indigo-400 bg-clip-text text-transparent;
   }
 
   .text-gradient-title {

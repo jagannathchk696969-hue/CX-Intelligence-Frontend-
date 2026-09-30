@@ -44,12 +44,12 @@ export const DashboardOverviewPage = () => {
       {/* Page Header with Date Filter */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-800/60">
         <div>
-          <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-300 text-[10px] font-bold uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded-full bg-violet-500/10 border border-violet-500/25 text-violet-300 text-[10px] font-bold uppercase tracking-wider mb-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span>Autonomous CX Telemetry Active</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-            Executive <span className="text-gradient-primary">CX Intelligence</span>
+            Executive <span className="text-gradient-purple">CX Intelligence</span>
           </h1>
           <p className="text-xs text-slate-400 mt-1">
             Real-time customer experience health, automated AI resolution telemetry, and sentiment monitoring.
@@ -64,7 +64,7 @@ export const DashboardOverviewPage = () => {
               onClick={() => setPeriod(days)}
               className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
                 period === days
-                  ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-md shadow-indigo-600/30'
+                  ? 'bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 text-white shadow-md shadow-violet-600/30'
                   : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
               }`}
             >
