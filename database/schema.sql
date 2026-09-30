@@ -228,3 +228,4 @@ CREATE POLICY "Allow public backend access to products" ON products FOR ALL USIN
 CREATE POLICY "Allow public backend access to recommendations" ON recommendations FOR ALL USING (true);
 CREATE POLICY "Allow public backend access to feedback" ON feedback FOR ALL USING (true);
 CREATE POLICY "Allow public backend access to ai_analysis" ON ai_analysis FOR ALL USING (true);
+                    

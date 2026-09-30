@@ -8,6 +8,7 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "seed": "node src/database/seed.js",
+    "check:supabase": "node src/database/checkSupabase.js",
     "test": "vitest run"
   },
   "dependencies": {

@@ -24,7 +24,7 @@ const initialStore = {
   ],
   profiles: [
     {
-      id: 'p1000000-0000-0000-0000-000000000001',
+      id: 'a1000000-0000-0000-0000-000000000001',
       business_id: DEFAULT_BUSINESS_ID,
       full_name: 'Elena Vance (System Admin)',
       email: 'admin@apex.com',
@@ -34,7 +34,7 @@ const initialStore = {
       created_at: new Date(Date.now() - 30 * 86400000).toISOString(),
     },
     {
-      id: 'p1000000-0000-0000-0000-000000000002',
+      id: 'a1000000-0000-0000-0000-000000000002',
       business_id: DEFAULT_BUSINESS_ID,
       full_name: 'Sarah Jenkins (Senior Agent)',
       email: 'agent.sarah@apex.com',
@@ -44,7 +44,7 @@ const initialStore = {
       created_at: new Date(Date.now() - 25 * 86400000).toISOString(),
     },
     {
-      id: 'p1000000-0000-0000-0000-000000000003',
+      id: 'a1000000-0000-0000-0000-000000000003',
       business_id: DEFAULT_BUSINESS_ID,
       full_name: 'Marcus Thorne (Tier 2 Engineer)',
       email: 'agent.marcus@apex.com',
@@ -54,7 +54,7 @@ const initialStore = {
       created_at: new Date(Date.now() - 20 * 86400000).toISOString(),
     },
     {
-      id: 'p1000000-0000-0000-0000-000000000004',
+      id: 'a1000000-0000-0000-0000-000000000004',
       business_id: DEFAULT_BUSINESS_ID,
       full_name: 'Alex Turner (Client)',
       email: 'alex.turner@gmail.com',
@@ -118,7 +118,7 @@ const initialStore = {
   ],
   knowledge_articles: [
     {
-      id: 'k1000000-0000-0000-0000-000000000001',
+      id: 'd1000000-0000-0000-0000-000000000001',
       business_id: DEFAULT_BUSINESS_ID,
       title: 'Enterprise Subscription Plans and Billing Cycles',
       content: 'Apex CX offers three primary subscription tiers: Starter ($99/month, up to 1,000 monthly active users and 5 support agents), Growth ($299/month, up to 10,000 active users, custom AI models, and 20 agent seats), and Enterprise ($899/month or custom annual contracts, unlimited seats, dedicated customer success manager, 99.99% uptime SLA, and custom LLM grounding). Billing occurs on the 1st of each calendar month. We accept major credit cards, ACH transfers, and corporate invoicing for annual contracts.',
@@ -130,7 +130,7 @@ const initialStore = {
       updated_at: new Date().toISOString(),
     },
     {
-      id: 'k1000000-0000-0000-0000-000000000002',
+      id: 'd1000000-0000-0000-0000-000000000002',
       business_id: DEFAULT_BUSINESS_ID,
       title: 'Refund Policy and 30-Day Money-Back Guarantee',
       content: 'We maintain a transparent 30-day money-back guarantee for all new Starter and Growth tier subscriptions. If you are not completely satisfied within the first 30 days of initial enrollment, you may request a 100% full refund through customer support or the billing dashboard with no penalty. Refunds are processed back to the original payment method within 3 to 5 business days. Enterprise annual contracts are governed by custom MSA terms and prorated service credits.',
@@ -142,7 +142,7 @@ const initialStore = {
       updated_at: new Date().toISOString(),
     },
     {
-      id: 'k1000000-0000-0000-0000-000000000003',
+      id: 'd1000000-0000-0000-0000-000000000003',
       business_id: DEFAULT_BUSINESS_ID,
       title: 'API Rate Limits, Webhooks, and Integration Architecture',
       content: 'Apex REST APIs enforce rate limits based on subscription tier: Starter allows 120 requests/minute, Growth allows 600 requests/minute, and Enterprise allows 3,000 requests/minute with custom burst allowances. API keys must be passed via the Authorization: Bearer <token> header. Webhook payloads are cryptographically signed using HMAC-SHA256 headers (x-apex-signature) for verified authenticity. Supported event triggers include ticket.created, ticket.resolved, conversation.escalated, and customer.sentiment_alert.',
@@ -154,7 +154,7 @@ const initialStore = {
       updated_at: new Date().toISOString(),
     },
     {
-      id: 'k1000000-0000-0000-0000-000000000004',
+      id: 'd1000000-0000-0000-0000-000000000004',
       business_id: DEFAULT_BUSINESS_ID,
       title: 'Security, SOC 2 Type II, and HIPAA Compliance Standards',
       content: 'Apex Cloud Solutions is certified SOC 2 Type II compliant and offers HIPAA Business Associate Agreements (BAA) for healthcare organizations. All data is encrypted in transit using TLS 1.3 and at rest with AES-256 encryption. We employ strict tenant isolation with PostgreSQL Row-Level Security (RLS). We never train public foundation models on private customer conversations without explicit opt-in.',
@@ -166,7 +166,7 @@ const initialStore = {
       updated_at: new Date().toISOString(),
     },
     {
-      id: 'k1000000-0000-0000-0000-000000000005',
+      id: 'd1000000-0000-0000-0000-000000000005',
       business_id: DEFAULT_BUSINESS_ID,
       title: 'Human Support Escalation and Response Time SLAs',
       content: 'If the AI Assistant cannot resolve your question or detects frustrated customer sentiment (confidence > 0.80), your session is automatically escalated to a Tier 2 Support Agent. For Enterprise plans, our first response SLA is under 15 minutes 24/7/365. For Growth plans, response SLA is within 2 hours during business hours (EST). Starter tickets receive responses within 8 business hours.',
@@ -180,7 +180,7 @@ const initialStore = {
   ],
   products: [
     {
-      id: 'pr100000-0000-0000-0000-000000000001',
+      id: 'e1000000-0000-0000-0000-000000000001',
       business_id: DEFAULT_BUSINESS_ID,
       name: 'Enterprise CX Suite Pro',
       description: 'All-in-one AI omnichannel platform with automated resolution, CRM sync, and dedicated agent copilot.',
@@ -193,7 +193,7 @@ const initialStore = {
       updated_at: new Date().toISOString(),
     },
     {
-      id: 'pr100000-0000-0000-0000-000000000002',
+      id: 'e1000000-0000-0000-0000-000000000002',
       business_id: DEFAULT_BUSINESS_ID,
       name: 'AI Sentiment & Ticket Copilot',
       description: 'Autonomous sentiment classification, urgency detection, and auto-drafting replies for human agents.',
@@ -206,7 +206,7 @@ const initialStore = {
       updated_at: new Date().toISOString(),
     },
     {
-      id: 'pr100000-0000-0000-0000-000000000003',
+      id: 'e1000000-0000-0000-0000-000000000003',
       business_id: DEFAULT_BUSINESS_ID,
       name: 'Omnichannel Web & Mobile Chat SDK',
       description: 'High-performance drop-in React, iOS, and Android chat widgets with offline caching and streaming AI replies.',
@@ -219,7 +219,7 @@ const initialStore = {
       updated_at: new Date().toISOString(),
     },
     {
-      id: 'pr100000-0000-0000-0000-000000000004',
+      id: 'e1000000-0000-0000-0000-000000000004',
       business_id: DEFAULT_BUSINESS_ID,
       name: 'Real-Time Predictive Analytics Engine',
       description: 'Machine learning dashboard forecasting customer churn, agent workloads, and CSAT bottlenecks.',
@@ -234,7 +234,7 @@ const initialStore = {
   ],
   conversations: [
     {
-      id: 'cv100000-0000-0000-0000-000000000001',
+      id: '11000000-0000-0000-0000-000000000001',
       business_id: DEFAULT_BUSINESS_ID,
       customer_id: 'c1000000-0000-0000-0000-000000000001',
       status: 'active',
@@ -243,7 +243,7 @@ const initialStore = {
       updated_at: new Date(Date.now() - 3600000).toISOString(),
     },
     {
-      id: 'cv100000-0000-0000-0000-000000000002',
+      id: '11000000-0000-0000-0000-000000000002',
       business_id: DEFAULT_BUSINESS_ID,
       customer_id: 'c1000000-0000-0000-0000-000000000002',
       status: 'escalated',
@@ -252,7 +252,7 @@ const initialStore = {
       updated_at: new Date(Date.now() - 10800000).toISOString(),
     },
     {
-      id: 'cv100000-0000-0000-0000-000000000003',
+      id: '11000000-0000-0000-0000-000000000003',
       business_id: DEFAULT_BUSINESS_ID,
       customer_id: 'c1000000-0000-0000-0000-000000000003',
       status: 'resolved',
@@ -263,8 +263,8 @@ const initialStore = {
   ],
   messages: [
     {
-      id: 'm1000000-0000-0000-0000-000000000001',
-      conversation_id: 'cv100000-0000-0000-0000-000000000001',
+      id: '21000000-0000-0000-0000-000000000001',
+      conversation_id: '11000000-0000-0000-0000-000000000001',
       sender_type: 'customer',
       sender_id: 'c1000000-0000-0000-0000-000000000001',
       content: 'Hi! I would like to know your refund policy for annual enterprise plans and how fast the team processes it.',
@@ -273,8 +273,8 @@ const initialStore = {
       created_at: new Date(Date.now() - 2 * 86400000).toISOString(),
     },
     {
-      id: 'm1000000-0000-0000-0000-000000000002',
-      conversation_id: 'cv100000-0000-0000-0000-000000000001',
+      id: '21000000-0000-0000-0000-000000000002',
+      conversation_id: '11000000-0000-0000-0000-000000000001',
       sender_type: 'ai_assistant',
       sender_id: null,
       content: 'Hello Alex! According to our official knowledge base article on Refund Policy, we provide a 30-day money-back guarantee for Starter and Growth plans with full refunds processed in 3-5 business days. For Enterprise annual plans, refund terms and prorated credits are governed by your custom Master Services Agreement (MSA). Would you like me to connect you with our billing specialist to review your specific agreement?',
@@ -283,8 +283,8 @@ const initialStore = {
       created_at: new Date(Date.now() - 2 * 86400000 + 4000).toISOString(),
     },
     {
-      id: 'm1000000-0000-0000-0000-000000000003',
-      conversation_id: 'cv100000-0000-0000-0000-000000000001',
+      id: '21000000-0000-0000-0000-000000000003',
+      conversation_id: '11000000-0000-0000-0000-000000000001',
       sender_type: 'customer',
       sender_id: 'c1000000-0000-0000-0000-000000000001',
       content: 'That explains it clearly, thank you so much for the quick help!',
@@ -293,8 +293,8 @@ const initialStore = {
       created_at: new Date(Date.now() - 3600000).toISOString(),
     },
     {
-      id: 'm1000000-0000-0000-0000-000000000004',
-      conversation_id: 'cv100000-0000-0000-0000-000000000002',
+      id: '21000000-0000-0000-0000-000000000004',
+      conversation_id: '11000000-0000-0000-0000-000000000002',
       sender_type: 'customer',
       sender_id: 'c1000000-0000-0000-0000-000000000002',
       content: 'Our production API webhook failed 3 times this morning and our customer orders are stuck! This is very frustrating.',
@@ -303,8 +303,8 @@ const initialStore = {
       created_at: new Date(Date.now() - 86400000).toISOString(),
     },
     {
-      id: 'm1000000-0000-0000-0000-000000000005',
-      conversation_id: 'cv100000-0000-0000-0000-000000000002',
+      id: '21000000-0000-0000-0000-000000000005',
+      conversation_id: '11000000-0000-0000-0000-000000000002',
       sender_type: 'ai_assistant',
       sender_id: null,
       content: 'I sincerely apologize for the disruption to your production orders, Maya. I have detected critical urgency in your webhook deliveries and have immediately escalated this conversation to our Senior Support Engineering team. Agent Sarah Jenkins has been alerted with top priority.',
@@ -315,10 +315,10 @@ const initialStore = {
   ],
   tickets: [
     {
-      id: 't1000000-0000-0000-0000-000000000001',
+      id: 'f1000000-0000-0000-0000-000000000001',
       business_id: DEFAULT_BUSINESS_ID,
       customer_id: 'c1000000-0000-0000-0000-000000000002',
-      assigned_agent_id: 'p1000000-0000-0000-0000-000000000002',
+      assigned_agent_id: 'a1000000-0000-0000-0000-000000000002',
       subject: 'Production Webhook Dispatch Failures (HTTP 504)',
       description: 'Customer reports multiple failed webhook events for order triggers. AI sentiment detected negative frustration.',
       priority: 'urgent',
@@ -331,10 +331,10 @@ const initialStore = {
       resolved_at: null,
     },
     {
-      id: 't1000000-0000-0000-0000-000000000002',
+      id: 'f1000000-0000-0000-0000-000000000002',
       business_id: DEFAULT_BUSINESS_ID,
       customer_id: 'c1000000-0000-0000-0000-000000000003',
-      assigned_agent_id: 'p1000000-0000-0000-0000-000000000003',
+      assigned_agent_id: 'a1000000-0000-0000-0000-000000000003',
       subject: 'Request for SOC 2 Type II Audit Report & BAA Addendum',
       description: 'Customer compliance team requires latest SOC2 report and executed Business Associate Agreement for upcoming security review.',
       priority: 'medium',
@@ -347,10 +347,10 @@ const initialStore = {
       resolved_at: null,
     },
     {
-      id: 't1000000-0000-0000-0000-000000000003',
+      id: 'f1000000-0000-0000-0000-000000000003',
       business_id: DEFAULT_BUSINESS_ID,
       customer_id: 'c1000000-0000-0000-0000-000000000004',
-      assigned_agent_id: 'p1000000-0000-0000-0000-000000000002',
+      assigned_agent_id: 'a1000000-0000-0000-0000-000000000002',
       subject: 'German Language Localization in Widget Prompts',
       description: 'Customer inquired about expanding localized German greetings and quick replies in the embedded web chat.',
       priority: 'low',
@@ -363,10 +363,10 @@ const initialStore = {
       resolved_at: new Date(Date.now() - 3 * 86400000).toISOString(),
     },
     {
-      id: 't1000000-0000-0000-0000-000000000004',
+      id: 'f1000000-0000-0000-0000-000000000004',
       business_id: DEFAULT_BUSINESS_ID,
       customer_id: 'c1000000-0000-0000-0000-000000000001',
-      assigned_agent_id: 'p1000000-0000-0000-0000-000000000002',
+      assigned_agent_id: 'a1000000-0000-0000-0000-000000000002',
       subject: 'Enterprise Billing Tier Upgrade Consultation',
       description: 'Customer exploring annual upgrade from Growth to Enterprise Suite for Q4 scaling.',
       priority: 'high',
@@ -381,18 +381,18 @@ const initialStore = {
   ],
   ticket_messages: [
     {
-      id: 'tm100000-0000-0000-0000-000000000001',
-      ticket_id: 't1000000-0000-0000-0000-000000000001',
-      sender_id: 'p1000000-0000-0000-0000-000000000002',
+      id: '31000000-0000-0000-0000-000000000001',
+      ticket_id: 'f1000000-0000-0000-0000-000000000001',
+      sender_id: 'a1000000-0000-0000-0000-000000000002',
       sender_type: 'agent',
       content: 'Internal note: Checked server logs. AWS us-east-1 endpoint experienced high latency causing client timeouts. We routed traffic through backup zone.',
       is_internal: true,
       created_at: new Date(Date.now() - 20 * 3600000).toISOString(),
     },
     {
-      id: 'tm100000-0000-0000-0000-000000000002',
-      ticket_id: 't1000000-0000-0000-0000-000000000001',
-      sender_id: 'p1000000-0000-0000-0000-000000000002',
+      id: '31000000-0000-0000-0000-000000000002',
+      ticket_id: 'f1000000-0000-0000-0000-000000000001',
+      sender_id: 'a1000000-0000-0000-0000-000000000002',
       sender_type: 'agent',
       content: 'Hello Maya, our infrastructure team has applied a traffic reroute to bypass the localized transit delay. All pending webhooks have been requeued with zero message loss.',
       is_internal: false,
@@ -401,25 +401,25 @@ const initialStore = {
   ],
   recommendations: [
     {
-      id: 'rc100000-0000-0000-0000-000000000001',
+      id: '41000000-0000-0000-0000-000000000001',
       customer_id: 'c1000000-0000-0000-0000-000000000001',
-      product_id: 'pr100000-0000-0000-0000-000000000001',
+      product_id: 'e1000000-0000-0000-0000-000000000001',
       reason: 'Recommended based on your interest in Enterprise Scaling and high conversational volume.',
       confidence_score: 0.94,
       created_at: new Date(Date.now() - 86400000).toISOString(),
     },
     {
-      id: 'rc100000-0000-0000-0000-000000000002',
+      id: '41000000-0000-0000-0000-000000000002',
       customer_id: 'c1000000-0000-0000-0000-000000000001',
-      product_id: 'pr100000-0000-0000-0000-000000000002',
+      product_id: 'e1000000-0000-0000-0000-000000000002',
       reason: 'Pairs well with your existing chat deployment to automate negative sentiment prioritization.',
       confidence_score: 0.89,
       created_at: new Date(Date.now() - 86400000).toISOString(),
     },
     {
-      id: 'rc100000-0000-0000-0000-000000000003',
+      id: '41000000-0000-0000-0000-000000000003',
       customer_id: 'c1000000-0000-0000-0000-000000000002',
-      product_id: 'pr100000-0000-0000-0000-000000000003',
+      product_id: 'e1000000-0000-0000-0000-000000000003',
       reason: 'Recommended for E-commerce mobile shoppers to deliver sub-second response times.',
       confidence_score: 0.91,
       created_at: new Date(Date.now() - 2 * 86400000).toISOString(),
@@ -427,18 +427,18 @@ const initialStore = {
   ],
   feedback: [
     {
-      id: 'fb100000-0000-0000-0000-000000000001',
+      id: '51000000-0000-0000-0000-000000000001',
       customer_id: 'c1000000-0000-0000-0000-000000000001',
-      conversation_id: 'cv100000-0000-0000-0000-000000000001',
+      conversation_id: '11000000-0000-0000-0000-000000000001',
       rating: 5,
       comment: 'The AI assistant answered my policy questions immediately without having to wait in a queue!',
       sentiment: 'positive',
       created_at: new Date(Date.now() - 86400000).toISOString(),
     },
     {
-      id: 'fb100000-0000-0000-0000-000000000002',
+      id: '51000000-0000-0000-0000-000000000002',
       customer_id: 'c1000000-0000-0000-0000-000000000003',
-      conversation_id: 'cv100000-0000-0000-0000-000000000003',
+      conversation_id: '11000000-0000-0000-0000-000000000003',
       rating: 4,
       comment: 'Great compliance documentation and helpful agent follow-up.',
       sentiment: 'positive',
@@ -447,8 +447,8 @@ const initialStore = {
   ],
   ai_analysis: [
     {
-      id: 'an100000-0000-0000-0000-000000000001',
-      message_id: 'm1000000-0000-0000-0000-000000000004',
+      id: '61000000-0000-0000-0000-000000000001',
+      message_id: '21000000-0000-0000-0000-000000000004',
       sentiment: 'negative',
       confidence: 0.92,
       intent: 'report_api_incident',
@@ -458,8 +458,8 @@ const initialStore = {
       created_at: new Date(Date.now() - 86400000).toISOString(),
     },
     {
-      id: 'an100000-0000-0000-0000-000000000002',
-      message_id: 'm1000000-0000-0000-0000-000000000003',
+      id: '61000000-0000-0000-0000-000000000002',
+      message_id: '21000000-0000-0000-0000-000000000003',
       sentiment: 'positive',
       confidence: 0.96,
       intent: 'customer_gratitude',
