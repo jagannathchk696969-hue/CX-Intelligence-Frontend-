@@ -72,9 +72,16 @@ export const chatService = {
       published: true,
     });
 
+    // Fetch previous conversation history for multi-turn reasoning
+    const previousMessages = await db.findMany('messages', { conversation_id: conv.id });
+    const history = previousMessages
+      .sort((a, b) => new Date(a.created_at) - new Date(b.created_at))
+      .slice(-6);
+
     // 6. Generate grounded AI response
     const aiResult = await aiService.generateChatbotResponse({
       message: messageContent,
+      history,
       knowledgeArticles,
       customer,
     });

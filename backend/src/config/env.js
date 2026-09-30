@@ -15,9 +15,19 @@ export const config = {
     serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
   },
   ai: {
-    geminiApiKey: process.env.GEMINI_API_KEY || '',
-    modelName: process.env.AI_MODEL_NAME || 'gemini-3.8-flash',
-    mockMode: process.env.AI_MOCK_MODE === 'true' || !process.env.GEMINI_API_KEY,
+    geminiApiKey:
+      process.env.GEMINI_API_KEY ||
+      process.env.gemini_ai_api ||
+      process.env.GEMINI_AI_API ||
+      process.env.GEMINI_AI_API_KEY ||
+      process.env.GOOGLE_GENAI_API_KEY ||
+      process.env.GOOGLE_API_KEY ||
+      '',
+    modelName:
+      process.env.AI_MODEL_NAME === 'gemini-3.8-flash'
+        ? 'gemini-2.5-flash'
+        : (process.env.AI_MODEL_NAME || 'gemini-2.5-flash'),
+    mockMode: process.env.AI_MOCK_MODE === 'true',
   },
   rateLimit: {
     windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000', 10), // 15 mins
